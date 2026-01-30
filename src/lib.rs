@@ -104,9 +104,16 @@ impl Default for Headers {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
+pub struct Config {
+    auto_update: Option<bool>
+}
+
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ConfigParser {
     pub headers: Headers,
-    pub max_agent: UserAgent
+    pub max_agent: UserAgent,
+    pub config: Config
 }
 
 impl ConfigParser {
@@ -118,5 +125,12 @@ impl ConfigParser {
         println!("Parsed config: {:#?}", config_instance);
 
         Ok(config_instance)
+    }
+
+    pub fn should_update(&self) -> Result<bool, Error> {
+        Ok(match self.config.auto_update {
+            Some(v) => v,
+            None => false
+        })
     }
 }
