@@ -119,10 +119,8 @@ pub struct ConfigParser {
 impl ConfigParser {
     pub fn parse_config_file(file_name: &str) -> Result<Self, Error> {
         let raw_config = fs::read_to_string(file_name)?;
-        println!("Raw config: {}", raw_config);
 
         let config_instance: ConfigParser = serde_json::from_str(&raw_config)?;
-        println!("Parsed config: {:#?}", config_instance);
 
         Ok(config_instance)
     }
