@@ -104,7 +104,7 @@ impl Default for Headers {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "PascalCase")]
+#[serde(rename_all = "camelCase")]
 pub struct Config {
     auto_update: Option<bool>
 }
